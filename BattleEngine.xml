@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	This file is <i>partially</i> consistant with RFC3076...  Still working on it.
+	Part of the problem is the readability when editing.
+-->
+
+<Data>
+  <Classes Length="2">
+    <Class1 Name="Fighter" StatStart="Str=20;Dex=12;Con=18;Int=6; Wis=8; Cha=12" StatGain="Str=20;Dex=12;Con=18;Int=6; Wis=8; Cha=12"/>
+    <Class2 Name="Mage"    StatStart="Str=8; Dex=12;Con=8 ;Int=18;Wis=16;Cha=12" StatGain="Str=8; Dex=12;Con=8 ;Int=18;Wis=16;Cha=12"/>
+  </Classes>
+  <Items Length="2">
+    <Item1 Name="axe" Type="Weapon" DmgMin="4" DmgMax="6" HitPercent="80%"/>
+    <Item2 Name="leather armor" Type="Armor" AC="3"/>
+  </Items>
+  <Spells/>
+  <Mobs Length="16">
+    <Mob1  Name="Goblin"                          HPMin="1"     HPMax="6"     Exp="5"       Level="0"  Weapon="poking stick"          DmgMin="1"    DmgMax="2"    HitPercent="80%"  Armor="big head"                   AC="-1"  ItemDrops="0"/>
+    <Mob2  Name="Giant Rat"                       HPMin="2"     HPMax="16"    Exp="10"      Level="1"  Weapon="claws"                 DmgMin="2"    DmgMax="4"    HitPercent="95%"  Armor="furry hide"                 AC="-1"  ItemDrops="0"/>
+    <Mob3  Name="Orc"                             HPMin="3"     HPMax="9"    Exp="20"      Level="2"  Weapon="axe"                   DmgMin="4"    DmgMax="6"    HitPercent="80%"  Armor="leather armor"              AC="0"   ItemDrops="2" DropItem1="axe"             DropChance1="25%" DropItem2="leather armor"   DropChance2="15%"/>
+    <Mob4  Name="Bug Bear"                        HPMin="3"     HPMax="16"    Exp="35"      Level="3"  Weapon="mace"                  DmgMin="5"    DmgMax="7"    HitPercent="80%"  Armor="rags"                       AC="1"   ItemDrops="1" DropItem1="mace"            DropChance1="25%"/>
+    <Mob5  Name="Troll"                           HPMin="15"    HPMax="30"    Exp="50"      Level="4"  Weapon="claws"                 DmgMin="3"    DmgMax="5"    HitPercent="70%"  Armor="rough skin"                 AC="1"   ItemDrops="0"/>
+    <Mob6  Name="Centaur"                         HPMin="12"    HPMax="40"    Exp="60"      Level="5"  Weapon="spear"                 DmgMin="4"    DmgMax="10"   HitPercent="90%"  Armor="magically enhanced hide"    AC="2"   ItemDrops="1" DropItem1="spear"           DropChance1="25%"/>
+    <Mob7  Name="Naga"                            HPMin="28"    HPMax="84"    Exp="80"      Level="6"  Weapon="spiky fins"            DmgMin="8"    DmgMax="14"   HitPercent="80%"  Armor="hardened scales"            AC="3"   ItemDrops="1" DropItem1="hardened scales" DropChance1="15%"/>
+    <Mob8  Name="Demonic Warlock"                 HPMin="12"    HPMax="96"    Exp="100"     Level="7"  Weapon="Fire Ball"             DmgMin="22"   DmgMax="2"    HitPercent="70%"  Armor="robes"                      AC="1"   ItemDrops="1" DropItem1="robes"           DropChance1="15%"/>
+    <Mob9  Name="Huge Rat"                        HPMin="25"    HPMax="130"   Exp="120"     Level="8"  Weapon="claws"                 DmgMin="4"    DmgMax="24"   HitPercent="90%"  Armor="leathery hide"              AC="4"   ItemDrops="1" DropItem1="leathery hide"   DropChance1="15%"/>
+    <Mob10 Name="Deepsea Murloc"                  HPMin="35"    HPMax="140"   Exp="150"     Level="9"  Weapon="clam axe"              DmgMin="9"    DmgMax="29"   HitPercent="90%"  Armor="hardened scales"            AC="4"   ItemDrops="2" DropItem1="clam axe"        DropChance1="25%" DropItem2="hardened scales" DropChance2="15%"/>
+    <Mob11 Name="Ironwood Treant"                 HPMin="55"    HPMax="230"   Exp="200"     Level="10" Weapon="massive branch-fist"   DmgMin="28"   DmgMax="60"   HitPercent="80%"  Armor="Ironwood bark"              AC="8"   ItemDrops="0"/>
+    <Mob12 Name="Lich"                            HPMin="70"    HPMax="210"   Exp="1000"    Level="11" Weapon="Disintigrate spell"    DmgMin="30"   DmgMax="40"   HitPercent="90%"  Armor="Powerful Protective spells" AC="15"  ItemDrops="0"/>
+    <Mob13 Name="Demi-Lich"                       HPMin="60"    HPMax="130"   Exp="10000"   Level="12" Weapon="Power Wod: Kill spell" DmgMin="100"  DmgMax="200"  HitPercent="100%" Armor="Godlike Protective spells"  AC="30"  ItemDrops="0"/>
+    <Mob14 Name="Avatar"                          HPMin="350"   HPMax="700"   Exp="100000"  Level="13" Weapon="spells"                DmgMin="200"  DmgMax="300"  HitPercent="100%" Armor="near-invulnerability"       AC="100" ItemDrops="0"/>
+    <Mob15 Name="Aasterinian, draconic messanger" HPMin="1300"  HPMax="3400"  Exp="1000000" Level="14" Weapon="draconic breath"       DmgMin="500"  DmgMax="1500" HitPercent="100%" Armor="invulnerability"            AC="300" ItemDrops="0"/>
+    <Mob16 Name="Bahamut, the Platinum Dragon"    HPMin="11000" HPMax="18000" Exp="3000000" Level="15" Weapon="draconic breath"       DmgMin="2000" DmgMax="5000" HitPercent="100%" Armor="platinum scales"            AC="500" ItemDrops="0"/>
+    <Mob17 Name="Chronepsis, dragon deity of fate, death, and judgment"/>
+    <Mob18 Name="Faluzure, dragon deity of energy draining, undeath, decay, and exhaustion"/>
+    <Mob19 Name="Garyx"/>
+    <Mob20 Name="Tiamat, queen of evil dragons "/>
+    <Mob21 Name="Io, Lord of the Gods"/>
+  </Mobs>
+</Data>
