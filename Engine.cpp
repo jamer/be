@@ -196,7 +196,7 @@ void Print(const char* format, ...)
 
 	while ((ch = *format++) != null)
 	{
-		if (ch != '%' && ch != '^')
+		if (ch != '%' && ch != '|')
 		{
 			putch(ch);
 			continue;
@@ -238,7 +238,7 @@ void Print(const char* format, ...)
 /* FIXME with ANSI escape sequences
 			switch (ch)
 			{
-			case '^':
+			case '|':
 				putch(ch);
 				break;
 			case 'D': // Dark

@@ -176,12 +176,16 @@ CharacterClass** cc;
 
 
 
+void Sleep(int millis)
+{
+	usleep(1000 * millis);
+}
 
-// sleep if (DebugMode != true)
-void try_sleep(int t)
+// Sleep if (DebugMode != true)
+void Wait(int millis)
 {
 	if (!IsDebug)
-		sleep(t<1?1:t);
+		Sleep(millis<1?1:millis);
 }
 
 
@@ -467,14 +471,14 @@ void Die()
 			"%s's HP: |B%l|W\n\n"
 			"\n"
 			"|YYou are dead!|W\n", enemies[EnemyNumber]->Name, enemiesDmgDealt, enemies[EnemyNumber]->Name, EnemyHP);
-	sleep(1000);
+	Sleep(1000);
 
 	Print("\nPress any key to continue . . .");
 	PressAnyKey();
 
 	ClearScreen();
 
-	try_sleep(1500);
+	Wait(1500);
 	//if (IsDebug)
 	{
 		//Print("You would have gotten a concussion if you weren't in DEBUG mode!\n");
@@ -482,7 +486,7 @@ void Die()
 		TimesDied++;
 		Save();
 
-		sleep(2000);
+		Sleep(2000);
 
 		Print("Press any key to continue...\n");
 		PressAnyKey();
@@ -516,7 +520,7 @@ void Die()
 			Print("The concussion causes you to lose all your Experience!\n\n"
 				"Don't die :(\n");
 
-		sleep(1500);
+		Sleep(1500);
 
 		Print("\nPress any key to continue...\n");
 		PressAnyKey();
@@ -608,7 +612,7 @@ void LoadData()
 	ClearScreen();
 
 	Print("\n\n|T|DDone parsing XML...\n");
-	sleep(500);
+	Sleep(500);
 
 /*
 	int n;
@@ -787,7 +791,7 @@ void MakeNewCharacter()
 	{
 		fclose(f);
 		Print("There is already a character with that name!");
-		sleep(2000);
+		Sleep(2000);
 		Quit();
 	}
 
@@ -849,7 +853,7 @@ int MainMenu()
 	for (int i = 0; i < nFiles; i++)
 		fLvl[i] = PreviewLevel(fNames[i]);
 
-//	sleep(300);
+//	Sleep(300);
 
 	CanQuit = true;
 
@@ -1108,8 +1112,8 @@ bool Run()
 						// Fight the enemy
 						EnemyNumber = LastCharInputed + FirstEnemyToBeat;
 						Print("%c\n", NumberToChar(LastCharInputed));
-						sleep(100);
-						try_sleep(100);
+						Sleep(100);
+						Wait(100);
 						break;
 					}
 					else
@@ -1138,7 +1142,7 @@ bool Run()
 
 		Print("\n"
 			"%s has %l HP", enemies[EnemyNumber]->Name, EnemyHP);
-		try_sleep(500);
+		Wait(500);
 
 
 		ClearScreen();
@@ -1208,7 +1212,7 @@ bool Run()
 				Print("|B%l|W", EnemyHP);
 			else
 				Print("|B0|W");
-			try_sleep(750);
+			Wait(750);
 
 			ClearScreen();
 		}
@@ -1227,7 +1231,7 @@ bool Run()
 			enemies[EnemyNumber]->Name, TmpExp);
 
 
-		try_sleep(1000);
+		Wait(1000);
 		Print("Press any key to continue . . .\n");
 
 		PressAnyKey();
@@ -1269,7 +1273,7 @@ bool Run()
 				if (statsGained[i] > 0)
 					Print("You gain %i %s!\n", statsGained[i], StatNames[i]);
 			Print("\nYour HP raises by %i!\n\n", HPGained);
-			try_sleep(1500);
+			Wait(1500);
 			Print("Press any key to continue\n");
 
 			PressAnyKey();
@@ -1334,7 +1338,7 @@ bool Run()
 
 				Print("\n");
 
-				try_sleep(1000);
+				Wait(1000);
 				Print("Press any key to continue . . .\n");
 				PressAnyKey();
 				Print("\n\n");
@@ -1362,7 +1366,7 @@ bool Run()
 					enemies[EnemyNumber]->Name, TempArmorName, ArmorClassDiff,
 					TempArmorClass);
 
-				try_sleep(1000);
+				Wait(1000);
 				Print("\nPress any key to continue . . .");
 
 				PressAnyKey();
