@@ -1,5 +1,5 @@
-CFLAGS=-g
-LDFLAGS=-g
+CXXFLAGS=-g
+LXXDFLAGS=-g
 
 all: bepp
 
