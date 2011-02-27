@@ -1077,6 +1077,7 @@ bool Run()
 
 				// Refresh the screen
 				//  All the extra weird code to is prevent screen flickering
+/* FIXME with curses
 				coord.X = 12;
 				coord.Y = 2;
 				SetConsoleCursorPosition(ConsoleOutput, coord);
@@ -1085,6 +1086,7 @@ bool Run()
 				coord.X = 0;
 				coord.Y = 0;
 				SetConsoleCursorPosition(ConsoleOutput, coord);
+*/
 				Print(GetSummaryStats(true, true));
 				Print(" --> ");
 
@@ -1113,6 +1115,7 @@ bool Run()
 					else
 					{
 						// Display the typed character
+/* FIXME with curses
 						COORD tmpc;
 						tmpc.X = coord.X;
 						tmpc.Y = coord.Y;
@@ -1123,6 +1126,7 @@ bool Run()
 						coord.X = tmpc.X;
 						coord.Y = tmpc.Y;
 						SetConsoleCursorPosition(ConsoleOutput, coord);
+*/
 					}
 			}
 		}
