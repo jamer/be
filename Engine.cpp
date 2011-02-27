@@ -1,15 +1,20 @@
+#include <sys/time.h>
+#include <stdlib.h>
+
 #include "Engine.h"
 #include "StrBuilder.h"
 
 long long holdRandom;
 
+/* FIXME with curses
 COORD coord = {0, 0}; // Screen co-ordinates
 WORD color;
 
-char CanQuit = true; // Allow the (X) button to close the window
-
 HANDLE ConsoleInput;
 HANDLE ConsoleOutput;
+*/
+
+char CanQuit = true; // Allow the (X) button to close the window
 
 void RandomSeed(long long seed)
 {
@@ -31,56 +36,15 @@ long Random()
 
 long long GetMillisecondCount()
 {
-		long long tim;
-		long tmpdays;
-		SYSTEMTIME loct;
-		long _days[] = { -1, 30, 58, 89, 119, 150, 180, 211, 242, 272, 303, 333, 364 };
-
-		GetLocalTime(&loct);
-
-		long yr = loct.wYear;
-		long mo = loct.wMonth;
-		long dy = loct.wDay;
-		long hr = loct.wHour;
-		long mn = loct.wMinute;
-		long sc = loct.wSecond;
-		long ms = loct.wMilliseconds;
-
-
-		if (((long)(yr -= 1900) < 70L) || ((long)yr > 138L))
-			return -1;
-
-		tmpdays = dy + _days[mo - 1];
-		if (!(yr & 3) && (mo > 2))
-				tmpdays++;
-
-		tim = // 365 days for each year
-				 (((long)yr - 70L) * 365L
-
-				 // one day for each elapsed leap year
-				 + (long)((yr - 1) >> 2) - 17L
-
-				 // number of elapsed days in yr
-				 + tmpdays)
-
-				 // convert to hours and add in hr
-				 * 24L + hr;
-
-		tim = // convert to minutes and add in mn
-				 ((tim * 60L + mn)
-
-				 // convert to seconds and add in sec
-				 * 60L + sc)
-
-				 // convert to milliseconds and add in ms
-				 * 1000L + ms;
-
-		return tim;
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec * 1000 + tv.tv_usec;
 }
 
 
 void ClearScreen()
 {
+/*
 //	CONSOLE_SCREEN_BUFFER_INFO buf;
 	DWORD charsRead;
 //	COORD size;
@@ -100,19 +64,26 @@ void ClearScreen()
 	FillConsoleOutputCharacter(ConsoleOutput, (TCHAR) ' ', 80 * 50, coord, &charsRead);
 
 	SetConsoleCursorPosition(ConsoleOutput, coord);
+*/
 }
 
 void FlushInput()
 {
+	/*
 	FlushConsoleInputBuffer(ConsoleInput);
+	*/
 }
 
 long PressAnyKey()
 {
+	/*
 	FlushInput();
 	return GetChar();
+	*/
+	return 0;
 }
 
+/*
 INPUT_RECORD ConInpRec;
 PINPUT_RECORD GetInput()
 {
@@ -124,11 +95,13 @@ PINPUT_RECORD GetInput()
 		ReadConsoleInput(ConsoleInput, &ConInpRec, 1, &NumRead);
 		return &ConInpRec;
 }
+*/
 
 
 
 long GetChar()
 {
+	/*
 	long ch;
 
 	while (GetInput())
@@ -143,10 +116,13 @@ long GetChar()
 	}
 
 	return null;
+	*/
+	return getchar();
 }
 
 long putch(long c)
 {
+/*
 	// Can't use ch directly unless sure we have a big-endian machine.
 	unsigned char ch = (unsigned char)c;
 	unsigned long num_written;
@@ -191,6 +167,8 @@ long putch(long c)
 		coord.X++;
 	}
 	return ch;
+*/
+	return putchar(c);
 }
 
 void PrintI(long i)
@@ -257,6 +235,7 @@ void Print(const char* format, ...)
 			if (ch == null)
 				break;
 
+/* FIXME with ANSI escape sequences
 			switch (ch)
 			{
 			case '^':
@@ -288,6 +267,7 @@ void Print(const char* format, ...)
 				color = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
 				break;
 			}
+*/
 		}
 	}
 }
@@ -344,6 +324,7 @@ const char* StrPrint(const char* format, ...)
 
 
 
+/* FIXME with atexit or on_exit
 BOOL WINAPI OnQuit(DWORD CtrlType)
 {
 	while (!CanQuit)
@@ -351,15 +332,15 @@ BOOL WINAPI OnQuit(DWORD CtrlType)
 
 	return false;
 }
+*/
 
 
 
 void Quit()
 {
 	CanQuit = true;
-	OnQuit(0);
 	Print("\n\n");
-	ExitProcess(null);
+	exit(0);
 }
 
 
