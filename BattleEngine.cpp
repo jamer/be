@@ -1,3 +1,8 @@
+#include <dirent.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 #include "Engine.h"
 #include "Str.h"
 #include "StrBuilder.h"
@@ -172,11 +177,11 @@ CharacterClass** cc;
 
 
 
-// Sleep if (DebugMode != true)
-void wait(DWORD t)
+// sleep if (DebugMode != true)
+void try_sleep(int t)
 {
 	if (!IsDebug)
-		Sleep(t<1?1:t);
+		sleep(t<1?1:t);
 }
 
 
@@ -462,14 +467,14 @@ void Die()
 			"%s's HP: |B%l|W\n\n"
 			"\n"
 			"|YYou are dead!|W\n", enemies[EnemyNumber]->Name, enemiesDmgDealt, enemies[EnemyNumber]->Name, EnemyHP);
-	Sleep(1000);
+	sleep(1000);
 
 	Print("\nPress any key to continue . . .");
 	PressAnyKey();
 
 	ClearScreen();
 
-	wait(1500);
+	try_sleep(1500);
 	//if (IsDebug)
 	{
 		//Print("You would have gotten a concussion if you weren't in DEBUG mode!\n");
@@ -477,7 +482,7 @@ void Die()
 		TimesDied++;
 		Save();
 
-		Sleep(2000);
+		sleep(2000);
 
 		Print("Press any key to continue...\n");
 		PressAnyKey();
@@ -511,7 +516,7 @@ void Die()
 			Print("The concussion causes you to lose all your Experience!\n\n"
 				"Don't die :(\n");
 
-		Sleep(1500);
+		sleep(1500);
 
 		Print("\nPress any key to continue...\n");
 		PressAnyKey();
@@ -529,7 +534,7 @@ char* loadDataBuffer;
 int loadDataBufferLength;
 int loadDataBufferPos = 0;
 
-char __cdecl loadNextChar()
+char loadNextChar()
 {
 	if (loadDataBufferPos++ < loadDataBufferLength)
 		return loadDataBuffer[loadDataBufferPos];
@@ -603,7 +608,7 @@ void LoadData()
 	ClearScreen();
 
 	Print("\n\n|T|DDone parsing XML...\n");
-	Sleep(500);
+	sleep(500);
 
 /*
 	int n;
@@ -782,7 +787,7 @@ void MakeNewCharacter()
 	{
 		fclose(f);
 		Print("There is already a character with that name!");
-		Sleep(2000);
+		sleep(2000);
 		Quit();
 	}
 
@@ -822,37 +827,29 @@ void MakeNewCharacter()
 
 int MainMenu()
 {
-	WIN32_FIND_DATA fd;
-	HANDLE hFind = INVALID_HANDLE_VALUE;
-
-	hFind = FindFirstFile(".\\*.sav", &fd);
-
+	DIR* dir;
+	struct dirent* entry;
 	int nFiles = 0;
 	char fNames[1024][256];
 	int fLvl[1024];
 
-	if (hFind == INVALID_HANDLE_VALUE)
-		nFiles = 0;
-	else
+	dir = opendir(".");
+	while (entry = readdir(dir))
 	{
-		strcpy(fNames[nFiles], fd.cFileName);
-		fNames[nFiles][strlen(fNames[nFiles]) - 4] = 0;
-		nFiles++;
-		while (FindNextFile(hFind, &fd) != 0)
+		int len = strlen(entry->d_name);
+		if (len > 4 && !strcmp(&(entry->d_name[len - 4]), ".sav"))
 		{
-			if ('a' <= fd.cFileName[0] && fd.cFileName[0] <= 'z')
-				continue;
-			strcpy(fNames[nFiles], fd.cFileName);
-			fNames[nFiles][strlen(fNames[nFiles]) - 4] = 0;
-			nFiles++;
+			char* name = fNames[nFiles++];
+			strcpy(name, entry->d_name);
+			name[len - 4] = 0;
 		}
-		FindClose(hFind);
 	}
+	closedir(dir);
 
 	for (int i = 0; i < nFiles; i++)
 		fLvl[i] = PreviewLevel(fNames[i]);
 
-//	Sleep(300);
+//	sleep(300);
 
 	CanQuit = true;
 
@@ -1109,8 +1106,8 @@ bool Run()
 						// Fight the enemy
 						EnemyNumber = LastCharInputed + FirstEnemyToBeat;
 						Print("%c\n", NumberToChar(LastCharInputed));
-						Sleep(100);
-						wait(100);
+						sleep(100);
+						try_sleep(100);
 						break;
 					}
 					else
@@ -1137,7 +1134,7 @@ bool Run()
 
 		Print("\n"
 			"%s has %l HP", enemies[EnemyNumber]->Name, EnemyHP);
-		wait(500);
+		try_sleep(500);
 
 
 		ClearScreen();
@@ -1207,7 +1204,7 @@ bool Run()
 				Print("|B%l|W", EnemyHP);
 			else
 				Print("|B0|W");
-			wait(750);
+			try_sleep(750);
 
 			ClearScreen();
 		}
@@ -1226,7 +1223,7 @@ bool Run()
 			enemies[EnemyNumber]->Name, TmpExp);
 
 
-		wait(1000);
+		try_sleep(1000);
 		Print("Press any key to continue . . .\n");
 
 		PressAnyKey();
@@ -1268,7 +1265,7 @@ bool Run()
 				if (statsGained[i] > 0)
 					Print("You gain %i %s!\n", statsGained[i], StatNames[i]);
 			Print("\nYour HP raises by %i!\n\n", HPGained);
-			wait(1500);
+			try_sleep(1500);
 			Print("Press any key to continue\n");
 
 			PressAnyKey();
@@ -1333,7 +1330,7 @@ bool Run()
 
 				Print("\n");
 
-				wait(1000);
+				try_sleep(1000);
 				Print("Press any key to continue . . .\n");
 				PressAnyKey();
 				Print("\n\n");
@@ -1361,7 +1358,7 @@ bool Run()
 					enemies[EnemyNumber]->Name, TempArmorName, ArmorClassDiff,
 					TempArmorClass);
 
-				wait(1000);
+				try_sleep(1000);
 				Print("\nPress any key to continue . . .");
 
 				PressAnyKey();

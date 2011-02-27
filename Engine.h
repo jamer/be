@@ -1,17 +1,12 @@
 #include <stdarg.h>
 #include <stdio.h>
-#include <windows.h>
 
 #define null 0
 
 #define CharToNumber(x)		(x-'0')
 #define NumberToChar(x)		(x+'0')
 
-extern COORD coord;
 extern char CanQuit; // Allow the (X) button to close the window
-
-extern HANDLE ConsoleInput;
-extern HANDLE ConsoleOutput;
 
 extern long long holdRandom;
 
